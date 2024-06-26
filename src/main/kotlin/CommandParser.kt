@@ -1,7 +1,7 @@
 package org.example
 
 data class Command(val commandName: CommandName,
-                   val commandArguments: List<String>?,
+                   val commandArguments: String?,
                    val commandOptions: List<String>?) {
 }
 
@@ -15,15 +15,17 @@ class CommandParser {
     private fun buildCommandObjectFromParts(commandParts: List<String>): Command {
         val commandName = CommandName.valueOf(commandParts[0].uppercase())
 
-        val commandArguments: List<String> = commandParts
-            .takeLast(commandParts.size -1)
+        val commandArguments: String = commandParts
+            .drop(1)
             .filter { part ->
             part.startsWith("--").not()
-        }
+        }.joinToString(" ")
+
         val commandParameters= commandParts
             .filter { part ->
                 part.startsWith("--")
             }
+            .map { part -> part.substring(2, part.length) }
 
 
         return Command(commandName, commandArguments, commandParameters)
