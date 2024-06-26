@@ -1,7 +1,5 @@
 package org.example
 
-import javax.swing.text.html.Option
-
 data class CommandEntity(val commandName: Commands,
                          val commandArguments: String?,
                          val commandOptions: List<Options>?) {

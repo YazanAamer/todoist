@@ -13,12 +13,12 @@ fun main() {
 
         try {
             val parsedCommand = parser.parseCommand(line)
-            val result = CommandsStore.validators.get(parsedCommand.commandName)?.validate(parsedCommand)
-            println(result)
-            println(parsedCommand)
+            val ok = CommandsStore.validators.get(parsedCommand.commandName)?.validate(parsedCommand)
+            if(ok ?: false)
+                CommandsStore.commandsFunctions.get(parsedCommand.commandName)?.execute(parsedCommand)
+
         } catch (e: Exception) {
             println("Command note found!")
-            exitProcess(-1)
         }
 
     }

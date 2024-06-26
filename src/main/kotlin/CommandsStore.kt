@@ -28,8 +28,12 @@ object CommandsStore {
         Commands.ADD to AddValidator()
     )
 
+    // will be replaced with DI solution
+    val localDataSource = NotesLocalStore()
+    val repo = NotesRepo(localDataSource)
 
-
-
-
+    val commandsFunctions: Map<Commands, CommandExecutor> = mapOf(
+        Commands.ADD to AddExecutor(repo),
+        Commands.LIST to ListExecutor(repo),
+    )
 }

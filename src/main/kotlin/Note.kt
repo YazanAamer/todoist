@@ -21,8 +21,7 @@ class Note (val id: Int, val description: String)  {
     private fun getShortDescription(description: String) = description.substring(0, getEndIndexForShortDescription(description))
 
     private fun getEndIndexForShortDescription(description: String):  Int{
-        if(description.length < 10) return description.length
-        return 10
+        return if(description.length < 10) description.length else 10
     }
 
     fun copyWith(

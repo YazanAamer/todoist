@@ -1,7 +1,7 @@
 package org.example
 
 class NotesLocalStore {
-    // represent the database here
+    //  Database implementation goes here
     val notesStore: MutableList<Note> = mutableListOf()
     var notesNumber: Int = 0
 
