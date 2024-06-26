@@ -23,4 +23,13 @@ object CommandsStore {
         Commands.REMOVE to listOf(Options.OPTION3, Options.OPTION2),
         Commands.LIST to listOf(Options.OPTION4, Options.OPTION3),
     )
+
+    val validators: Map<Commands, CommandValidator> = mapOf(
+        Commands.ADD to AddValidator()
+    )
+
+
+
+
+
 }
