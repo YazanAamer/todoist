@@ -1,19 +1,21 @@
 package org.example
 
-data class Command(val commandName: CommandName,
-                   val commandArguments: String?,
-                   val commandOptions: List<String>?) {
+import javax.swing.text.html.Option
+
+data class CommandEntity(val commandName: Commands,
+                         val commandArguments: String?,
+                         val commandOptions: List<Options>?) {
 }
 
 class CommandParser {
-    fun parseCommand(commandInput: String): Command{
+    fun parseCommand(commandInput: String): CommandEntity{
         val commandParts =  segmentCommandIntoParts(commandInput)
         return buildCommandObjectFromParts(commandParts)
     }
 
 
-    private fun buildCommandObjectFromParts(commandParts: List<String>): Command {
-        val commandName = CommandName.valueOf(commandParts[0].uppercase())
+    private fun buildCommandObjectFromParts(commandParts: List<String>): CommandEntity {
+        val commandName = Commands.valueOf(commandParts[0].uppercase())
 
         val commandArguments: String = commandParts
             .drop(1)
@@ -26,9 +28,10 @@ class CommandParser {
                 part.startsWith("--")
             }
             .map { part -> part.substring(2, part.length) }
+            .map { option -> Options.valueOf(option.uppercase())  }
 
 
-        return Command(commandName, commandArguments, commandParameters)
+        return CommandEntity(commandName, commandArguments, commandParameters)
     }
 
     private fun segmentCommandIntoParts(command: String): List<String> {

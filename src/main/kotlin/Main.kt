@@ -1,24 +1,28 @@
 package org.example
-import java.util.Scanner
-import kotlin.system.exitProcess
 
 fun main() {
     val commandParser = CommandParser()
-    val result = commandParser.parseCommand(
-        "add this is a command test and this is the note --option --anotheroption continuing here")
-    val result2 = commandParser.parseCommand(
-        "remove 1 --option --anotheroption")
+    val commandValidator: CommandValidator = AddValidator()
+    val commands = commandParser.parseCommand(
+        "add this is a command test and this is the note --option2 --option2")
 
-    val result3 = commandParser.parseCommand(
-        "update 1 this is the updating string")
+    println(commandValidator.validate(commands))
 
-    val result4 = commandParser.parseCommand(
-        "list --option")
 
-    println(result)
-    println(result2)
-    println(result3)
-    println(result4)
+
+
+
+
+//    val result2 = commandParser.parseCommand(
+//        "remove 1 --option --anotheroption")
+//
+//    val result3 = commandParser.parseCommand(
+//        "update 1 this is the updating string")
+//
+//    val result4 = commandParser.parseCommand(
+//        "list --option")
+
+    println(commands)
 
 //    val scanner = Scanner(System.`in`)
 //    val notes = mutableListOf<String>()

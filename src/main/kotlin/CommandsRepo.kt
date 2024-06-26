@@ -1,16 +1,16 @@
 package org.example
 
-class CommandsRepo(private val commandsLocalStore: CommandsLocalStore) {
+class CommandsRepo(private val commandsLocalStore: CommandsStore) {
 
-    fun isValidCommand(command: Command): Boolean {
+    fun isValidCommand(command: CommandEntity): Boolean {
         return commandNameIsAvailable(command.commandName) &&
                 allOptionsBelongToCommand(command.commandName, command.commandOptions ?: listOf())
 //                allArgumentsBelongToCommand(command.commandName.toString())
     }
 
-    private fun commandNameIsAvailable(commandName:CommandName) = commandsLocalStore.availableCommands.contains(commandName)
-    private fun allOptionsBelongToCommand(commandName: CommandName, options: List<String>): Boolean {
-        val availableOptionsForCommand = commandsLocalStore.availableOptions.getOrElse(commandName) { listOf() }
+    private fun commandNameIsAvailable(commandName:Commands) = commandsLocalStore.commands.contains(commandName)
+    private fun allOptionsBelongToCommand(commandName: Commands, options: List<Options>): Boolean {
+        val availableOptionsForCommand = commandsLocalStore.options.getOrElse(commandName) { listOf() }
 
         options.forEach{ option ->
             if(availableOptionsForCommand.contains(option).not())
